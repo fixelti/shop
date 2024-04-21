@@ -1,0 +1,15 @@
+ENV: local
+
+Server:
+  Port: 8080
+
+Postgres:
+  Port: 5432
+  Host: localhost
+  User: test
+  Password: test
+  Name: testDB
+
+JWT:
+  Access_token_lifetime: 15m
+  Refresh_token_lifetime:  14400m
