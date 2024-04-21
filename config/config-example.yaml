@@ -1,15 +1,15 @@
-ENV: local
+env: local
 
-Server:
-  Port: 8080
+server:
+  port: 8080
 
-Postgres:
-  Port: 5432
-  Host: localhost
-  User: test
-  Password: test
-  Name: testDB
+postgres:
+  port: 5555
+  host: localhost
+  user: test
+  password: test
+  name: shot-test
 
-JWT:
-  Access_token_lifetime: 15m
-  Refresh_token_lifetime:  14400m
+jwt:
+  access_token_lifetime: 15m
+  refresh_token_lifetime:  14400m

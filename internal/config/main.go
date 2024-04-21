@@ -22,7 +22,7 @@ type (
 		Port string `mapstructure:"port"`
 	}
 
-	database struct {
+	postgres struct {
 		Host     string `mapstructure:"host"`
 		Port     string `mapstructure:"port"`
 		User     string `mapstructure:"user"`
@@ -42,7 +42,7 @@ type (
 	Config struct {
 		Env      environment `mapstructure:"env"`
 		Server   server      `mapstructure:"server"`
-		Database database    `mapstructure:"database"`
+		Postgres postgres    `mapstructure:"postgres"`
 		JWT      jwt         `mapstructure:"jwt"`
 	}
 )
