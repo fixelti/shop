@@ -2,6 +2,8 @@ package logger
 
 import (
 	"context"
+	"fmt"
+	"github.com/jackc/pgx/v5"
 	"log/slog"
 	"os"
 	"shop/internal/common/models"
@@ -34,6 +36,13 @@ func (l *logger) Handle(ctx context.Context, rec slog.Record) error {
 		if c.UserID != 0 {
 			rec.Add("userID", c.UserID)
 		}
+		if c.OP != "" {
+			rec.Add("op", c.OP)
+		}
+		if c.PostgresQueryRes != nil {
+			fmt.Println("Work")
+			rec.Add("postgresQueryRes", c.PostgresQueryRes)
+		}
 	}
 	return l.next.Handle(ctx, rec)
 }
@@ -52,6 +61,22 @@ func WithLogUserID(ctx context.Context, userID uint) context.Context {
 		return context.WithValue(ctx, 0, c)
 	}
 	return context.WithValue(ctx, 0, models.LogCtx{UserID: userID})
+}
+
+func WithOP(ctx context.Context, op string) context.Context {
+	if c, ok := ctx.Value(0).(models.LogCtx); ok {
+		c.OP = op
+		return context.WithValue(ctx, 0, c)
+	}
+	return context.WithValue(ctx, 0, models.LogCtx{OP: op})
+}
+
+func WithPostgresQueryRes(ctx context.Context, res pgx.Rows) context.Context {
+	if c, ok := ctx.Value(0).(models.LogCtx); ok {
+		c.PostgresQueryRes = res
+		return context.WithValue(ctx, 0, c)
+	}
+	return context.WithValue(ctx, 0, models.LogCtx{PostgresQueryRes: res})
 }
 
 func (l *logger) Info(ctx context.Context, msg string) {
