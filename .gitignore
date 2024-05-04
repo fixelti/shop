@@ -20,5 +20,12 @@
 # Go workspace file
 go.work
 ./config/config.yaml
-./.idea
+./.idea/*
 ./config/.env
+/config/.env
+/.idea/.gitignore
+/.idea/dataSources.xml
+/.idea/modules.xml
+/.idea/shop.iml
+/.idea/sqldialects.xml
+/.idea/vcs.xml
