@@ -3,7 +3,7 @@ package models
 import "time"
 
 type UserEntity struct {
-	ID          uint       `json:"id"`
+	ID          uint       `db:"id"`
 	Email       string     `db:"email"`
 	Password    string     `db:"password"`
 	Name        string     `db:"name"`
@@ -16,6 +16,7 @@ type UserEntity struct {
 }
 
 type UserDTO struct {
+	ID          uint   `json:"id"`
 	Email       string `json:"email"`
 	Name        string `json:"name"`
 	Surname     string `json:"surname"`
@@ -25,6 +26,7 @@ type UserDTO struct {
 
 func (user UserEntity) ToDTO() UserDTO {
 	return UserDTO{
+		ID:          user.ID,
 		Email:       user.Email,
 		Name:        user.Name,
 		Surname:     user.Surname,

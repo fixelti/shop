@@ -1,16 +1,19 @@
 package user
 
 import (
+	"context"
 	"shop/internal/lib/logger"
-	"shop/internal/service/user"
 )
 
+type userService interface {
+	SignUp(ctx context.Context, email, password string) (uint, error)
+}
 type User struct {
 	logger  logger.Logger
-	service user.User
+	service userService
 }
 
-func New(logger logger.Logger, service user.User) User {
+func New(logger logger.Logger, service userService) User {
 	return User{
 		service: service,
 		logger:  logger,

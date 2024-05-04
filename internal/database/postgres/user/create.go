@@ -8,7 +8,6 @@ import (
 	"shop/internal/common/models"
 	queries "shop/internal/database/postgres/user/internal"
 	"shop/internal/lib/database/postgres"
-	"shop/internal/lib/logger"
 )
 
 func (user User) Create(ctx context.Context, email, password string) (uint, error) {
@@ -26,23 +25,22 @@ func (user User) Create(ctx context.Context, email, password string) (uint, erro
 	defer res.Close()
 	if err != nil {
 		if rollbackErr := tx.Rollback(ctx); rollbackErr != nil {
-			return 0, fmt.Errorf(customError.ErrRollbackTransaction.Error(), err)
+			return 0, fmt.Errorf(customError.ErrRollbackTransaction.Error(), rollbackErr)
 		}
 		return 0, fmt.Errorf(customError.ErrQuery.Error(), err)
 	}
 
-	ctx = logger.WithPostgresQueryRes(ctx, res)
 	createdUser, err := postgres.ScanInStruct[models.UserEntity](res)
 	if err != nil {
 		if rollbackErr := tx.Rollback(ctx); rollbackErr != nil {
-			return 0, fmt.Errorf(customError.ErrRollbackTransaction.Error(), err)
+			return 0, fmt.Errorf(customError.ErrRollbackTransaction.Error(), rollbackErr)
 		}
 		return 0, fmt.Errorf(customError.ErrScanInStruct.Error(), err)
 	}
 
 	if createdUser == nil {
 		if rollbackErr := tx.Rollback(ctx); rollbackErr != nil {
-			return 0, fmt.Errorf(customError.ErrRollbackTransaction.Error(), err)
+			return 0, fmt.Errorf(customError.ErrRollbackTransaction.Error(), rollbackErr)
 		}
 		return 0, customError.ErrUserIsEmpty
 	}
@@ -50,6 +48,5 @@ func (user User) Create(ctx context.Context, email, password string) (uint, erro
 	if err := tx.Commit(ctx); err != nil {
 		return 0, fmt.Errorf(customError.ErrCommitTransaction.Error(), err)
 	}
-
 	return createdUser.ID, nil
 }

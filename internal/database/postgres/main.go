@@ -7,7 +7,7 @@ import (
 
 type Manager struct {
 	database postgres.Database
-	User     *user.User
+	User     user.User
 }
 
 func New(database postgres.Database) Manager {

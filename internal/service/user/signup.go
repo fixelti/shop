@@ -13,7 +13,7 @@ func (user User) SignUp(ctx context.Context, email, password string) (uint, erro
 	ctx = logger.WithOP(ctx, "service.user.SignUp")
 	foundUser, err := user.db.GetByEmail(ctx, email)
 	if err != nil {
-		user.logger.Error(ctx, errors.Wrap(err, customError.ErrGetUserByEmail.Error()).Error())
+		user.logger.Error(ctx, errors.Wrap(err, customError.ErrGetUserByEmail.Error()))
 		return 0, err
 	}
 
@@ -23,13 +23,13 @@ func (user User) SignUp(ctx context.Context, email, password string) (uint, erro
 
 	passwordHash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
-		user.logger.Error(ctx, errors.Wrap(err, customError.ErrGenerateFromPassword.Error()).Error())
+		user.logger.Error(ctx, errors.Wrap(err, customError.ErrGenerateFromPassword.Error()))
 		return 0, err
 	}
 
 	userID, err := user.db.Create(ctx, email, string(passwordHash))
 	if err != nil {
-		user.logger.Error(ctx, errors.Wrap(err, customError.ErrCreateUser.Error()).Error())
+		user.logger.Error(ctx, errors.Wrap(err, customError.ErrCreateUser.Error()))
 		return 0, err
 	}
 
