@@ -5,7 +5,6 @@ import (
 	"github.com/pkg/errors"
 	"golang.org/x/crypto/bcrypt"
 	customError "shop/internal/common/errors"
-	"shop/internal/common/models"
 	"shop/internal/lib/logger"
 )
 
@@ -34,11 +33,4 @@ func (user User) SignUp(ctx context.Context, email, password string) (uint, erro
 	}
 
 	return userID, nil
-}
-
-func exist(user models.UserEntity) bool {
-	if user.ID == 0 {
-		return false
-	}
-	return true
 }

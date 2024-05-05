@@ -8,7 +8,8 @@ import (
 	postgresDB "shop/internal/database/postgres"
 	"shop/internal/handler/http"
 	"shop/internal/lib/database/postgres"
-	logger "shop/internal/lib/logger"
+	"shop/internal/lib/jwt"
+	"shop/internal/lib/logger"
 	"shop/internal/service"
 )
 
@@ -29,10 +30,16 @@ func main() {
 		cfg.Postgres.Name)
 	db := postgres.New(context.Background(), dsn)
 
-	postgresManager := postgresDB.New(db)
-	serviceManager := service.New(log, postgresManager)
+	jwtGenerator := jwt.New(
+		cfg.JWT.AccessTokenLifeTime,
+		cfg.JWT.RefreshTokenLifeTime,
+		cfg.JWT.AccessTokenKey,
+		cfg.JWT.RefreshTokenKey)
 
-	server := http.New(log, serviceManager)
+	postgresManager := postgresDB.New(db)
+	serviceManager := service.New(jwtGenerator, log, postgresManager)
+
+	server := http.New(cfg, log, serviceManager)
 
 	log.Info(context.Background(), fmt.Sprintf("starting server on %s port", cfg.Server.Port))
 	if err := server.Start(cfg.Server.Port); err != nil {

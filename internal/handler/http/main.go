@@ -3,6 +3,7 @@ package http
 import (
 	"github.com/go-playground/validator"
 	"github.com/labstack/echo/v4"
+	"shop/internal/config"
 	"shop/internal/handler/http/user"
 	"shop/internal/lib/logger"
 	"shop/internal/service"
@@ -15,15 +16,17 @@ type Validator struct {
 type Handler struct {
 	echo      *echo.Echo
 	validator *echo.Validator
+	config    config.Config
 	user      user.User
 }
 
-func New(logger logger.Logger, serviceManager service.Manager) *echo.Echo {
+func New(config config.Config, logger logger.Logger, serviceManager service.Manager) *echo.Echo {
 	e := echo.New()
 	e.Validator = &Validator{validator: validator.New()}
 	http := Handler{
-		echo: e,
-		user: user.New(logger, serviceManager.User),
+		echo:   e,
+		config: config,
+		user:   user.New(config, logger, serviceManager.User),
 	}
 
 	http.handlers()

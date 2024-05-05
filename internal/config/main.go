@@ -35,7 +35,7 @@ type (
 		AccessTokenLifeTime time.Duration `mapstructure:"access_token_lifetime"`
 		// Время жизни токена для обновление основного токена
 		RefreshTokenLifeTime time.Duration `mapstructure:"refresh_token_lifetime"`
-		TokenKey             string        `mapstructure:"-" env:"TOKEN_KEY,required"`
+		AccessTokenKey       string        `mapstructure:"-" env:"ACCESS_TOKEN_KEY,required"`
 		RefreshTokenKey      string        `mapstructure:"-" env:"REFRESH_TOKEN_KEY,required"`
 	}
 
