@@ -9,5 +9,10 @@ func (handler Handler) handlers() {
 			user.POST("/login", handler.user.Login)
 			user.POST("/refresh-access-token", handler.user.RefreshAccessToken, handler.VerifyRefreshToken)
 		}
+		product := v1.Group("/product")
+		{
+			//TODO: добавить проверку на администратора
+			product.POST("/create", handler.product.Create, handler.VerifyAccessToken)
+		}
 	}
 }
