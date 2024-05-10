@@ -10,4 +10,5 @@ var (
 	ErrUserNotFound         = errors.New("user not found")
 	ErrWrongPassword        = errors.New("wrong password")
 	ErrGenerateTokens       = errors.New("failed to generate tokens")
+	ErrCreateProduct        = errors.New("failed to product user")
 )
