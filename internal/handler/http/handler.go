@@ -12,7 +12,8 @@ func (handler Handler) handlers() {
 		product := v1.Group("/product")
 		{
 			//TODO: добавить проверку на администратора
-			product.POST("/create", handler.product.Create, handler.VerifyAccessToken)
+			product.POST("", handler.product.Create, handler.VerifyAccessToken)
+			product.GET("", handler.product.GetByID, handler.VerifyAccessToken)
 		}
 	}
 }

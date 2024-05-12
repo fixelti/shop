@@ -10,4 +10,5 @@ var (
 	ErrScanInStruct        = errors.New("failed to scan in struct")
 	ErrUserIsEmpty         = errors.New("user is empty")
 	ErrProductIsEmpty      = errors.New("product is empty")
+	ErrProductNotFound     = errors.New("product not found")
 )

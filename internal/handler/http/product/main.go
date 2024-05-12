@@ -8,6 +8,7 @@ import (
 
 type productService interface {
 	Create(ctx context.Context, productData models.ProductEntity) (uint, error)
+	GetByID(ctx context.Context, id uint) (models.ProductEntity, error)
 }
 type Product struct {
 	logger  logger.Logger

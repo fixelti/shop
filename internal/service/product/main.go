@@ -8,6 +8,7 @@ import (
 
 type productRepository interface {
 	Create(ctx context.Context, product models.ProductEntity) (uint, error)
+	GetByID(ctx context.Context, id uint) (models.ProductEntity, error)
 }
 
 type Product struct {
