@@ -27,7 +27,7 @@ func (user User) Login(ctx context.Context, email, password string) (models.Auth
 		return models.AuthorizationTokens{}, customError.ErrWrongPassword
 	}
 
-	tokens, err := user.jwt.GenerateTokens(ctx, foundUser.ID)
+	tokens, err := user.jwt.GenerateTokens(ctx, foundUser.ID, foundUser.Role)
 	if err != nil {
 		user.logger.Error(ctx, errors.Wrap(err, customError.ErrGenerateTokens.Error()))
 	}

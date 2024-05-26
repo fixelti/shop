@@ -5,6 +5,7 @@ import (
 	"github.com/pkg/errors"
 	"golang.org/x/crypto/bcrypt"
 	customError "shop/internal/common/errors"
+	"shop/internal/common/models"
 	"shop/internal/lib/logger"
 )
 
@@ -26,7 +27,7 @@ func (user User) SignUp(ctx context.Context, email, password string) (uint, erro
 		return 0, err
 	}
 
-	userID, err := user.db.Create(ctx, email, string(passwordHash))
+	userID, err := user.db.Create(ctx, email, string(passwordHash), models.USER_ROLE)
 	if err != nil {
 		user.logger.Error(ctx, errors.Wrap(err, customError.ErrCreateUser.Error()))
 		return 0, err

@@ -1,9 +1,12 @@
 -- +goose Up
 -- +goose StatementBegin
+
+CREATE TYPE USER_ROLE AS ENUM ('ADMIN', 'USER', 'OTHER');
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(100) NOT NULL,
     password VARCHAR(255) NOT NULL,
+    role USER_ROLE NOT NULL DEFAULT 'OTHER',
     name VARCHAR(30) DEFAULT 'no_data',
     surname VARCHAR(30) DEFAULT 'no_data',
     patronymic VARCHAR(30) DEFAULT 'no_data',
@@ -27,6 +30,9 @@ CREATE TABLE IF NOT EXISTS products (
 
 -- +goose Down
 -- +goose StatementBegin
+
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS products;
+
+DROP TYPE USER_ROLE;
 -- +goose StatementEnd

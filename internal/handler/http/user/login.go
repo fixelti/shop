@@ -24,7 +24,7 @@ func (user User) Login(c echo.Context) error {
 
 	tokens, err := user.service.Login(c.Request().Context(), request.Email, request.Password)
 	if err != nil {
-		if errors.Is(err, customError.ErrUserNotFound) {
+		if errors.Is(err, customError.ErrUserNotFound) || errors.Is(err, customError.ErrWrongPassword) {
 			return c.JSON(http.StatusUnauthorized, nil)
 		}
 		return c.JSON(http.StatusInternalServerError, nil)

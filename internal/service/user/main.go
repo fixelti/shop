@@ -8,12 +8,12 @@ import (
 )
 
 type userRepository interface {
-	Create(ctx context.Context, email, password string) (uint, error)
+	Create(ctx context.Context, email, password string, role models.Role) (uint, error)
 	GetByEmail(ctx context.Context, email string) (models.UserEntity, error)
 }
 
 type generateJWTToken interface {
-	GenerateTokens(ctx context.Context, userID uint) (models.AuthorizationTokens, error)
+	GenerateTokens(ctx context.Context, userID uint, userRole models.Role) (models.AuthorizationTokens, error)
 	RefreshToken(ctx context.Context, claims jwt.MapClaims) (string, error)
 }
 
