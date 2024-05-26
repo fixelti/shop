@@ -10,7 +10,7 @@ import (
 	"shop/internal/lib/database/postgres"
 )
 
-func (user User) Create(ctx context.Context, email, password string) (uint, error) {
+func (user User) Create(ctx context.Context, email, password string, role models.Role) (uint, error) {
 	tx, err := user.database.BeginTx(ctx, pgx.TxOptions{})
 	if err != nil {
 		return 0, fmt.Errorf(customError.ErrBeginTransaction.Error(), err)
@@ -21,6 +21,7 @@ func (user User) Create(ctx context.Context, email, password string) (uint, erro
 		queries.CREATE,
 		email,
 		password,
+		role,
 	)
 	defer res.Close()
 	if err != nil {

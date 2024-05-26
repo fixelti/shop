@@ -2,8 +2,17 @@ package models
 
 import "time"
 
+type Role string
+
+const (
+	ADMIN_ROLE Role = "ADMIN"
+	USER_ROLE  Role = "USER"
+	OTHER_ROLE Role = "OTHER"
+)
+
 type UserEntity struct {
 	ID          uint       `db:"id"`
+	Role        Role       `db:"role"`
 	Email       string     `db:"email"`
 	Password    string     `db:"password"`
 	Name        string     `db:"name"`
@@ -17,6 +26,7 @@ type UserEntity struct {
 
 type UserDTO struct {
 	ID          uint   `json:"id"`
+	Role        Role   `json:"role"`
 	Email       string `json:"email"`
 	Name        string `json:"name"`
 	Surname     string `json:"surname"`
@@ -27,6 +37,7 @@ type UserDTO struct {
 func (user UserEntity) ToDTO() UserDTO {
 	return UserDTO{
 		ID:          user.ID,
+		Role:        user.Role,
 		Email:       user.Email,
 		Name:        user.Name,
 		Surname:     user.Surname,

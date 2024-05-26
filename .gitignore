@@ -29,3 +29,4 @@ go.work
 /.idea/shop.iml
 /.idea/sqldialects.xml
 /.idea/vcs.xml
+/config/config.yaml

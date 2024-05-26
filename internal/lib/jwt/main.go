@@ -11,6 +11,7 @@ import (
 
 const (
 	ClaimsUserIDKey     = "user_id"
+	ClaimsUserRole      = "role"
 	ClaimsExpirationKey = "expiration"
 )
 
@@ -35,12 +36,13 @@ func New(
 	}
 }
 
-func (j JWT) GenerateTokens(ctx context.Context, userID uint) (models.AuthorizationTokens, error) {
+func (j JWT) GenerateTokens(ctx context.Context, userID uint, userRole models.Role) (models.AuthorizationTokens, error) {
 	var err error
 	token := models.AuthorizationTokens{}
 	// claims для access токена
 	claims := jwt.MapClaims{
 		ClaimsUserIDKey:     userID,
+		ClaimsUserRole:      userRole,
 		ClaimsExpirationKey: time.Now().Add(j.expirationAccessToken).Unix(),
 	}
 

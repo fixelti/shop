@@ -12,7 +12,6 @@ type RefreshAccessTokenResponse models.AuthorizationTokens
 func (user User) RefreshAccessToken(c echo.Context) error {
 	claims, ok := c.Get("claims").(*jwt.MapClaims)
 	if !ok {
-		//TODO: возможно сделать вывод claims в логах
 		return c.JSON(http.StatusUnauthorized, nil)
 	}
 
