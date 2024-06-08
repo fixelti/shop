@@ -12,7 +12,8 @@ func (handler Handler) handlers() {
 		product := v1.Group("/product")
 		{
 			product.POST("", handler.product.Create, handler.AdministratorCheck)
-			product.GET("", handler.product.GetByID, handler.VerifyAccessToken)
+			product.GET("", handler.product.GetByID)
+			product.GET("/list", handler.product.GetList)
 		}
 	}
 }

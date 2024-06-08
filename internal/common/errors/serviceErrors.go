@@ -10,6 +10,8 @@ var (
 	ErrUserNotFound         = errors.New("user not found")
 	ErrWrongPassword        = errors.New("wrong password")
 	ErrGenerateTokens       = errors.New("failed to generate tokens")
-	ErrCreateProduct        = errors.New("failed to product user")
-	ErrGetByIDProduct       = errors.New("failed to get product by id")
+	//product
+	ErrCreateProduct    = errors.New("failed to product user")
+	ErrGetByIDProduct   = errors.New("failed to get product by id")
+	ErrGetByListProduct = errors.New("failed to get list products")
 )

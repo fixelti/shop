@@ -27,3 +27,7 @@ func New(ctx context.Context, dsn string) Database {
 func ScanInStruct[T any](rows pgx.Rows) (*T, error) {
 	return pgx.CollectExactlyOneRow(rows, pgx.RowToAddrOfStructByName[T])
 }
+
+func ScanInArrayStruct[T any](rows pgx.Rows) ([]T, error) {
+	return pgx.CollectRows(rows, pgx.RowToStructByName[T])
+}
