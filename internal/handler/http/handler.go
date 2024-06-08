@@ -14,6 +14,7 @@ func (handler Handler) handlers() {
 			product.POST("", handler.product.Create, handler.AdministratorCheck)
 			product.GET("", handler.product.GetByID)
 			product.GET("/list", handler.product.GetList)
+			product.PUT("", handler.product.Update, handler.AdministratorCheck)
 		}
 	}
 }

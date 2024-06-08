@@ -39,5 +39,9 @@ func (product Product) GetList(ctx context.Context, pageNum, pageSize uint) ([]m
 		return []models.ProductEntity{}, fmt.Errorf(customError.ErrScanInStruct.Error(), err)
 	}
 
+	if err := tx.Commit(ctx); err != nil {
+		return []models.ProductEntity{}, fmt.Errorf(customError.ErrCommitTransaction.Error(), err)
+	}
+
 	return foundProducts, nil
 }
