@@ -14,4 +14,5 @@ var (
 	ErrCreateProduct    = errors.New("failed to product user")
 	ErrGetByIDProduct   = errors.New("failed to get product by id")
 	ErrGetByListProduct = errors.New("failed to get list products")
+	ErrUpdateProduct    = errors.New("failed to update product")
 )

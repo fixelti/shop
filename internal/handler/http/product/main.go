@@ -10,6 +10,7 @@ type productService interface {
 	Create(ctx context.Context, productData models.ProductEntity) (uint, error)
 	GetByID(ctx context.Context, id uint) (models.ProductEntity, error)
 	GetList(ctx context.Context, pageNum, pageSize uint) ([]models.ProductEntity, error)
+	Update(ctx context.Context, updatedProduct models.ProductEntity) error
 }
 type Product struct {
 	logger  logger.Logger

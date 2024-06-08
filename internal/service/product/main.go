@@ -10,6 +10,7 @@ type productRepository interface {
 	Create(ctx context.Context, product models.ProductEntity) (uint, error)
 	GetByID(ctx context.Context, id uint) (models.ProductEntity, error)
 	GetList(ctx context.Context, pageNum, pageSize uint) ([]models.ProductEntity, error)
+	Update(ctx context.Context, updatedPoduct models.ProductEntity) error
 }
 
 type Product struct {
